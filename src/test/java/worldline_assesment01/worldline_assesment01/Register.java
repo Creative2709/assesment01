@@ -1,24 +1,29 @@
 package worldline_assesment01.worldline_assesment01;
 
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import org.openqa.selenium.ElementClickInterceptedException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.en.And;
+
 import junit.framework.Assert;
 
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
+
 
 
 public class Register {
@@ -61,29 +66,50 @@ public void i_have_entered_a_title() {
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[1]/div[1]/div[2]/input")).sendKeys("swapnil270900");
 }    
 
-@Given("I have entered a First Name")
+@And("I have entered a First Name")
 public void i_have_entered_a_first_name() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[2]/div[1]/div[2]/input")).sendKeys("Swapnil");
    
 }
 
-@Given("I have entered a Surname")
+@And("I have entered a Surname")
 public void i_have_entered_a_surname() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.cssSelector("input[placeholder='Enter your last Name']")).sendKeys("Jadhav");
 }
 
-@Given("I have entered a Date of Birth")
-public void i_have_entered_a_date_of_birth() throws AWTException, InterruptedException  {
+@And("I have entered a Date of Birth")
+public void i_have_entered_a_date_of_birth() throws InterruptedException{
 	
-	WebElement dateOfBirthInput = driver.findElement(By.cssSelector("input[placeholder='Open calendar and select date']"));
-	dateOfBirthInput.sendKeys("9/27/2002");
-	
-		
-}
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-@Given("I have entered a Gender")
+
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[2]/div[2" +
+	                "]/div[2]/input")));
+	        WebElement dateIP = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[2]/div[2" +
+	                "]/div[2]/input"));
+
+	        js.executeScript("window.scrollBy(0,500)","");
+	        if(dateIP.isDisplayed()){
+	            Thread.sleep(5000);
+	            dateIP.click();
+	        }
+	        if(dateIP.isEnabled()){
+	            By dropDownMonth = By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[2]/div[2]/div[2]/div/div/div/div[2]/div/form/select[2]");
+	            WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
+	            wait1.until(ExpectedConditions.visibilityOfElementLocated(dropDownMonth));
+	            WebElement dropDownMonthSelect = driver.findElement(dropDownMonth);
+	            Select dropDownMonthList = new Select(dropDownMonthSelect);
+	            dropDownMonthList.selectByIndex(9);
+	            Select dropDownYear = new Select(driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[2]/div[2]/div[2]/div/div/div/div[2]/div/form/select[2]")));
+	            dropDownYear.selectByIndex(78);
+	            driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[2]/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[4]/div[4]")).click();
+	        }
+	    }
+
+@And("I have entered a Gender")
 public void i_have_entered_a_gender() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[2]/div[3]/div[1]"));
@@ -92,35 +118,35 @@ public void i_have_entered_a_gender() {
    
 }
 
-@Given("I have entered an Email")
+@And("I have entered an Email")
 public void i_have_entered_an_email() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[1]/div[1]/div[4]/input")).sendKeys("sj27092000@gmail.com");
 
 }
 
-@Given("I have entered a Mobile")
+@And("I have entered a Mobile")
 public void i_have_entered_a_mobile() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[1]/div[2]/div[2]/input")).sendKeys("9112699066");
    
 }
 
-@Given("I have entered a Password")
+@And("I have entered a Password")
 public void i_have_entered_a_password() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[1]/div[2]/div[4]/input")).sendKeys("Testing123");
 }
 
 
-@Given("I have entered a Password Reminder Question")
+@And("I have entered a Password Reminder Question")
 public void i_have_entered_a_password_reminder_question() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[1]/div[3]/div[2]/select"));
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[1]/div[3]/div[2]/select/option[3]")).click();
 }
 
-@Given("I have entered a Password Reminder Answer")
+@And("I have entered a Password Reminder Answer")
 public void i_have_entered_a_password_reminder_answer() {
     // Write code here that turns the phrase above into concrete actions
 	driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/div[1]/div[3]/div[4]/input")).sendKeys("abc123");
@@ -150,17 +176,14 @@ public void i_have_entered_alternate_number() {
 
 
 @When("I click on the Create Account button")
-public void i_click_on_the_create_account_button() {
-    // Write code here that turns the phrase above into concrete actions
-	try {
-	driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/main/div[3]/div[1]/button")).click();
-	} catch (ElementClickInterceptedException e) {
-		assertTrue(true, "Button click failed as expected due to known issue with website's code");
-		return;
-	}
-	
-	fail("Expected ElementClickInterceptedException was not thrown");}
-	
+public void i_click_on_the_create_account_button() throws InterruptedException {
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+
+	  js.executeScript("window.scrollBy(800,500)","");
+      Thread.sleep(2000);
+      driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div[3]/div[1]/button")).click();
+      								
+}
 	@Then("User should display error message")
 	public void user_should_display_error_message() {
 	    // Write code here that turns the phrase above into concrete actions
